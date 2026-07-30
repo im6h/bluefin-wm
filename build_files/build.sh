@@ -66,7 +66,7 @@ FONTS=(
 # from ml4w and other sources.
 HYPR_DEPS=(
 	aquamarine
-	aylurs-gtk-shell2
+	# aylurs-gtk-shell2
 	blueman
 	bluez
 	bluez-tools
@@ -81,7 +81,7 @@ HYPR_DEPS=(
 	grim
 	grimblast
 	gvfs
-	hyprpanel
+	# hyprpanel
 	inxi
 	kvantum
 	# lib32-nvidia-utils
@@ -156,6 +156,7 @@ fi
 NIRI_PKGS=(
 	niri
 	swaylock
+	noctalia-git
 	# alacritty
 	# brightnessctl
 	# fuzzel
@@ -197,7 +198,7 @@ ADDITIONAL_SYSTEM_APPS=(
 # we do all package installs in one rpm-ostree command
 # so that we create minimal layers in the final image
 log "Installing packages using dnf5..."
-dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
+dnf5 install --setopt=install_weak_deps=False -y \
 	"${FONTS[@]}" \
 	"${HYPR_DEPS[@]}" \
 	"${HYPR_PKGS[@]}" \
