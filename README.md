@@ -201,41 +201,6 @@ sudo bootc rollback
 
 ---
 
-## 🏗️ Building Locally
-
-If you want to build or modify this image yourself, clone the repository and use the provided `Justfile`.
-
-### Requirements
-
-- [Podman](https://podman.io)
-- [just](https://just.systems) (available by default on all Universal Blue images)
-
-### Build the image
-
-```bash
-just build
-```
-
-### Run in a VM (QCOW2)
-
-```bash
-just build-qcow2
-just run-vm-qcow2
-```
-
-### Lint & format scripts
-
-```bash
-just lint    # shellcheck on all Bash scripts
-just format  # shfmt on all Bash scripts
-just check   # syntax check all .just files
-```
-
-> [!TIP]
-> See [GUILD.md](./GUILD.md) for the complete build, VM, ISO, rechunking, and signing documentation.
-
----
-
 ## 📁 Repository Structure
 
 ```
