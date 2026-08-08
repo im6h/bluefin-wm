@@ -22,11 +22,11 @@ COPR_REPOS=(
 	errornointernet/packages
 	heus-sueh/packages                # for matugen/swww, needed by hyprpanel
 	leloubil/wl-clip-persist
-	# pgdev/ghostty
 	lionheartp/Hyprland # fix issue on fedora 44 -> https://github.com/solopasha/hyprlandRPM/issues/49
 	tofik/sway
 	ulysg/xwayland-satellite
 	yalter/niri
+	scottames/ghostty
 )
 for repo in "${COPR_REPOS[@]}"; do
 	# Try to enable the repo, but don't fail the build if it doesn't support this Fedora version
@@ -186,13 +186,12 @@ fi
 # only special GUI apps that need to be installed at the system level.
 ADDITIONAL_SYSTEM_APPS=(
 	alacritty
-	# ghostty is broken in Fedora 42 right now
-	# ghostty
 	kitty
 	kitty-terminfo
 	thunar
 	thunar-volman
 	thunar-archive-plugin
+	ghostty
 )
 
 # we do all package installs in one rpm-ostree command
