@@ -21,7 +21,7 @@ curated for tiling window manager workflows with full Vietnamese input support.*
 The image is designed for users who prefer a **Wayland tiling window manager** workflow over a traditional GNOME desktop, while retaining the stability and atomic update model of Universal Blue / Fedora Silverblue.
 
 Key goals:
-- 🪟 Ship **Niri** and **Hyprland** fully installed and ready to use
+- 🪟 Ship **Niri** fully installed and ready to use
 - 🇻🇳 Provide **Vietnamese input** out-of-the-box via [fcitx5-lotus](https://github.com/LotusInputMethod/fcitx5-lotus)
 - 🎨 Include a curated Wayland toolstack (bars, launchers, notification daemons, theming tools)
 - 📦 Keep everything reproducible, image-based, and atomic
@@ -34,7 +34,6 @@ Key goals:
 | WM | Type | Description |
 |---|---|---|
 | [Niri](https://github.com/YaLTeR/niri) | Scrollable-tiling | A unique infinite-canvas scrolling compositor |
-| [Hyprland](https://hyprland.org) | Dynamic-tiling | Feature-rich, highly configurable Wayland compositor |
 | [Noctalia Shell](https://github.com/noctalia-dev/noctalia) | Desktop Shell | A cohesive Wayland desktop shell with bar, dock, notifications, and widgets |
 
 ### 🇻🇳 Vietnamese Input
@@ -54,7 +53,7 @@ Key goals:
 | Bluetooth | `blueman`, `bluez`, `bluez-tools` |
 | Audio | `pamixer`, `pavucontrol`, `playerctl`, `wireplumber` |
 | Brightness | `brightnessctl` |
-| Lock screen | `swaylock` (Niri), `hyprlock` (Hyprland) |
+| Lock screen | `swaylock` |
 | Idle daemon | `hypridle` |
 | Display control | `wlr-randr` |
 | Qt theming | `qt5ct`, `qt6ct`, `kvantum`, `nwg-look` |
@@ -122,29 +121,6 @@ Then open **fcitx5-configtool**, add **Lotus** as an input method, and set your 
 > [!NOTE]
 > `noctalia-git` is built from the latest Git snapshot and sourced via the `errornointernet/packages` COPR repo.
 
-### Hyprland
-
-[Hyprland](https://hyprland.org) is a highly customizable dynamic tiling compositor known for smooth animations, rich IPC, and an active plugin ecosystem.
-
-**Packages installed:**
-
-| Package | Purpose |
-|---|---|
-| `hyprland` | Compositor |
-| `hyprcursor` | Cursor theme manager |
-| `hyprpaper` | Wallpaper daemon |
-| `hypridle` | Idle / DPMS daemon |
-| `hyprlock` | Lock screen |
-| `hyprshot` | Screenshot utility |
-| `hyprsunset` | Blue-light filter |
-| `hyprutils` | Shared utility libraries |
-| `xdg-desktop-portal-hyprland` | XDG portal backend |
-| `hyprsysteminfo` | System info (Bluefin only) |
-| `hyprpolkitagent` | Polkit agent (Bluefin only) |
-| `hyprland-qt-support` | Qt integration (Bluefin only) |
-
-> [!NOTE]
-> `hyprsysteminfo`, `hyprpolkitagent`, and `hyprland-qt-support` are only installed on Bluefin (Qt 6.9). They are skipped on Bazzite due to a Qt version mismatch.
 
 ---
 
@@ -158,7 +134,7 @@ The following [Fedora COPR](https://copr.fedorainfracloud.org/) repositories are
 | `errornointernet/packages` | Various Wayland utilities |
 | `heus-sueh/packages` | `matugen`, `swww` (needed by hyprpanel) |
 | `leloubil/wl-clip-persist` | Clipboard persistence across focus changes |
-| `lionheartp/Hyprland` | Hyprland fix for Fedora 44 |
+| `lionheartp/Hyprland` | Packages required on Fedora 44 |
 | `tofik/sway` | Sway-related tools |
 | `ulysg/xwayland-satellite` | XWayland compatibility layer |
 | `yalter/niri` | Niri compositor |
@@ -180,7 +156,7 @@ The following [Fedora COPR](https://copr.fedorainfracloud.org/) repositories are
 sudo bootc switch ghcr.io/im6h/bluefin-wm:latest
 ```
 
-Then **reboot**. On next login, select **Niri** or **Hyprland** from your display manager session list.
+Then **reboot**. On next login, select **Niri** from your display manager session list.
 
 > [!WARNING]
 > This will replace your current OS image. Your home directory and `/etc` are preserved. Make sure you have a backup of important data before switching.

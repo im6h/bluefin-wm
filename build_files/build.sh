@@ -20,9 +20,9 @@ log "Enable Copr repos..."
 COPR_REPOS=(
 	erikreider/SwayNotificationCenter # for swaync
 	errornointernet/packages
-	heus-sueh/packages                # for matugen/swww, needed by hyprpanel
+	heus-sueh/packages                # for matugen/swww
 	leloubil/wl-clip-persist
-	lionheartp/Hyprland # fix issue on fedora 44 -> https://github.com/solopasha/hyprlandRPM/issues/49
+	lionheartp/Hyprland # provides packages needed for niri on Fedora 44
 	tofik/sway
 	ulysg/xwayland-satellite
 	yalter/niri
@@ -61,116 +61,59 @@ FONTS=(
 	google-noto-emoji-fonts
 )
 
-# Hyprland dependencies to be installed, based on
-# https://github.com/JaKooLit/Fedora-Hyprland/ with additions
-# from ml4w and other sources.
-HYPR_DEPS=(
-	aquamarine
-	# aylurs-gtk-shell2
+# Niri compositor + Noctalia Shell dependencies.
+# Noctalia provides natively: bar, launcher, notifications, lockscreen,
+# wallpaper management, palette/theming, session/logout, and brightness/volume IPC.
+# Only the backends and tools those features call into are listed here.
+NIRI_PKGS=(
+	# --- Compositor + Noctalia shell ---
+	niri
+	noctalia-git
+	hypridle           # idle/DPMS daemon (Noctalia triggers lock via this)
+
+	# --- Audio backend (Noctalia volume IPC calls into these) ---
+	pamixer            # volume backend called by Noctalia IPC
+	pavucontrol        # graphical mixer for fine-grained audio control
+	playerctl          # media player control
+	wireplumber        # PipeWire session manager (required)
+
+	# --- Brightness backend ---
+	brightnessctl      # Noctalia brightness IPC calls this
+
+	# --- Screenshot (not built into Noctalia) ---
+	grim
+	grimblast
+	slurp
+	swappy
+
+	# --- Clipboard ---
+	cliphist
+	wl-clipboard
+	wl-clip-persist
+
+	# --- Bluetooth backend ---
 	blueman
 	bluez
 	bluez-tools
-	brightnessctl
-	btop
-	cava
-	cliphist
-	# egl-wayland
-	eog
-	fuzzel
 	gnome-bluetooth
-	grim
-	grimblast
-	gvfs
-	# hyprpanel
-	inxi
-	kvantum
-	# lib32-nvidia-utils
-	libgtop2
-	mako
-	matugen
-	mpv
-	# mpv-mpris
-	network-manager-applet
-	nodejs
-	# nvidia-dkms
-	# nvidia-utils
-	nwg-look
-	pamixer
-	pavucontrol
-	playerctl
-	# power-profiles-daemon
-	python3-pyquery
-	qalculate-gtk
-	qt5ct
-	qt6ct
-	rofi-wayland
-	slurp
-	swappy
-	swaync
-	swww
-	tumbler
-	upower
-	wallust
-	waybar
-	wget2
-	wireplumber
-	wl-clipboard
-	wl-clip-persist
-	wlogout
-	wlr-randr
-	xarchiver
+
+	# --- System services ---
+	gvfs               # virtual filesystem (file dialogs, portals)
+	upower             # power/battery info
+	libgtop2           # system resource metrics (Noctalia sysmon widget)
+	network-manager-applet  # NM tray indicator
+
+	# --- Portals (required for screen sharing, file pickers, theming) ---
 	xdg-desktop-portal-gtk
-	xdg-desktop-portal-hyprland
-	xwayland-satellite
-	yad
-)
-
-# Hyprland ecosystem packages
-HYPR_PKGS=(
-	hyprland
-	hyprcursor
-	hyprpaper
-	hyprpicker
-	hypridle
-	hyprlock
-	hyprshot
-	xdg-desktop-portal-hyprland
-	hyprsunset
-	hyprutils
-)
-
-# Detect if we're on Bazzite (has KDE/Qt 6.10) or Bluefin (has GNOME/Qt 6.9)
-# These Qt-dependent packages only work on Bluefin currently due to Qt version mismatch
-if ! grep -qi "bazzite" /usr/lib/os-release 2>/dev/null; then
-	# Only add Qt-dependent packages on Bluefin
-	HYPR_PKGS+=(
-		hyprsysteminfo
-		hyprpolkitagent
-		hyprland-qt-support
-	)
-fi
-
-# Niri and its dependencies from its default config.
-# commented out packages are already referenced in this file, OR they
-# are prebundled inside our parent image.
-NIRI_PKGS=(
-	niri
-	swaylock
-	noctalia-git
-	# alacritty
-	# brightnessctl
-	# fuzzel
-	# mako
-	# waybar
-	# xwayland-satellite
-	# gnome-keyring
-	# wireplumber
 	# xdg-desktop-portal-gnome
-	# xdg-desktop-portal-gtk
+
+	# --- XWayland bridge ---
+	xwayland-satellite
+	wget2
 )
 
 # SDDM not set up properly yet, so this is just a placeholder.
-# For now you'll have to invoke Hyprland from the command line.
+# For now you'll have to invoke the compositor from the command line.
 SDDM_PACKAGES=()
 if [[ $USE_SDDM == TRUE ]]; then
 	SDDM_PACKAGES=(
@@ -199,8 +142,6 @@ ADDITIONAL_SYSTEM_APPS=(
 log "Installing packages using dnf5..."
 dnf5 install --setopt=install_weak_deps=False -y \
 	"${FONTS[@]}" \
-	"${HYPR_DEPS[@]}" \
-	"${HYPR_PKGS[@]}" \
 	"${NIRI_PKGS[@]}" \
 	"${SDDM_PACKAGES[@]}" \
 	"${ADDITIONAL_SYSTEM_APPS[@]}"
