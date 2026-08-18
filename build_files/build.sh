@@ -121,7 +121,6 @@ log "Installing packages using dnf5..."
 dnf5 install --setopt=install_weak_deps=False -y \
 	"${FONTS[@]}" \
 	"${NIRI_PKGS[@]}" \
-	"${SDDM_PACKAGES[@]}" \
 	"${ADDITIONAL_SYSTEM_APPS[@]}"
 
 #######################################################################
