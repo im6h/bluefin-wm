@@ -2,8 +2,6 @@
 
 set -ouex pipefail
 
-# RELEASE="$(rpm -E %fedora)"
-
 log() {
 	echo "=== $* ==="
 }
@@ -14,7 +12,6 @@ log() {
 
 log "Enable Copr repos..."
 COPR_REPOS=(
-	erikreider/SwayNotificationCenter # for swaync
 	errornointernet/packages
 	heus-sueh/packages                # for matugen/swww
 	leloubil/wl-clip-persist
@@ -62,7 +59,6 @@ NIRI_PKGS=(
 	# --- Compositor + Noctalia shell ---
 	niri
 	noctalia-git
-	hypridle           # idle/DPMS daemon (Noctalia triggers lock via this)
 
 	# --- Audio backend (Noctalia volume IPC calls into these) ---
 	pamixer            # volume backend called by Noctalia IPC
@@ -75,7 +71,6 @@ NIRI_PKGS=(
 
 	# --- Screenshot (not built into Noctalia) ---
 	grim
-	grimblast
 	slurp
 	swappy
 
