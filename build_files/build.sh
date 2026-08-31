@@ -108,7 +108,6 @@ ADDITIONAL_SYSTEM_APPS=(
 	thunar-volman
 	thunar-archive-plugin
 	ghostty
-	helix
 )
 
 # we do all package installs in one rpm-ostree command
