@@ -108,6 +108,11 @@ ADDITIONAL_SYSTEM_APPS=(
 	thunar-volman
 	thunar-archive-plugin
 	ghostty
+	fcitx5
+	fcitx5-configtool
+	fcitx5-gtk
+	fcitx5-qt
+	kcm-fcitx5
 )
 
 # we do all package installs in one rpm-ostree command
