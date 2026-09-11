@@ -121,6 +121,13 @@ dnf5 install --setopt=install_weak_deps=False -y \
 	"${NIRI_PKGS[@]}" \
 	"${ADDITIONAL_SYSTEM_APPS[@]}"
 
+IMPORTANT_UNITS=(
+		coolercontrold.service
+)
+
+for unit in "${IMPORTANT_UNITS[@]}"; do
+	systemctl enable --now "$unit"    
+done
 #######################################################################
 ### Disable repositeories so they aren't cluttering up the final image
 
@@ -128,8 +135,6 @@ log "Disable Copr repos to get rid of clutter..."
 for repo in "${COPR_REPOS[@]}"; do
 	dnf5 -y copr disable "$repo"
 done
-
-systemctl enable --now coolercontrold
 
 ### Install fcitx5-lotus from GitHub Releases
 
@@ -165,10 +170,6 @@ log "Installing ${FCITX5_LOTUS_RPM_FILENAME}..."
 dnf5 install --setopt=install_weak_deps=False -y "${FCITX5_LOTUS_RPM_TMP}"
 
 rm -f "${FCITX5_LOTUS_RPM_TMP}"
-
-IMPORTANT_UNITS=(
-		coolercontrold.service
-)
 
 for unit in "${IMPORTANT_UNITS[@]}"; do
     if ! systemctl is-enabled "$unit" 2>/dev/null | grep -q "^enabled$"; then
