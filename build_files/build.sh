@@ -163,3 +163,16 @@ log "Installing ${FCITX5_LOTUS_RPM_FILENAME}..."
 dnf5 install --setopt=install_weak_deps=False -y "${FCITX5_LOTUS_RPM_TMP}"
 
 rm -f "${FCITX5_LOTUS_RPM_TMP}"
+
+IMPORTANT_UNITS=(
+		coolercontrold.service
+)
+
+for unit in "${IMPORTANT_UNITS[@]}"; do
+    if ! systemctl is-enabled "$unit" 2>/dev/null | grep -q "^enabled$"; then
+        echo "${unit} is not enabled"
+        exit 1
+    fi
+done
+
+echo "::endgroup::"
