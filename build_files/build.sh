@@ -122,7 +122,7 @@ dnf5 install --setopt=install_weak_deps=False -y \
 	"${ADDITIONAL_SYSTEM_APPS[@]}"
 
 IMPORTANT_UNITS=(
-		coolercontrold.service
+		coolercontrold
 )
 
 for unit in "${IMPORTANT_UNITS[@]}"; do
