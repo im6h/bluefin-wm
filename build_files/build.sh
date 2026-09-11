@@ -105,6 +105,7 @@ NIRI_PKGS=(
 # for most things with GUIs, and homebrew for CLI apps. This list is
 # only special GUI apps that need to be installed at the system level.
 ADDITIONAL_SYSTEM_APPS=(
+	dnf-plugins-core
 	coolercontrol
 	thunar
 	thunar-volman
