@@ -20,7 +20,6 @@ COPR_REPOS=(
 	ulysg/xwayland-satellite
 	yalter/niri
 	scottames/ghostty
-	codifryed/CoolerControl
 )
 
 for repo in "${COPR_REPOS[@]}"; do
@@ -105,7 +104,6 @@ NIRI_PKGS=(
 # for most things with GUIs, and homebrew for CLI apps. This list is
 # only special GUI apps that need to be installed at the system level.
 ADDITIONAL_SYSTEM_APPS=(
-	coolercontrol
 	thunar
 	thunar-volman
 	thunar-archive-plugin
