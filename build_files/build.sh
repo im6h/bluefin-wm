@@ -129,6 +129,8 @@ for repo in "${COPR_REPOS[@]}"; do
 	dnf5 -y copr disable "$repo"
 done
 
+systemctl enable --now coolercontrold
+
 ### Install fcitx5-lotus from GitHub Releases
 
 log "Installing fcitx5-lotus from GitHub releases..."
