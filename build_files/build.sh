@@ -20,7 +20,6 @@ COPR_REPOS=(
 	ulysg/xwayland-satellite
 	yalter/niri
 	scottames/ghostty
-	codifryed/CoolerControl
 )
 
 for repo in "${COPR_REPOS[@]}"; do
@@ -105,8 +104,6 @@ NIRI_PKGS=(
 # for most things with GUIs, and homebrew for CLI apps. This list is
 # only special GUI apps that need to be installed at the system level.
 ADDITIONAL_SYSTEM_APPS=(
-	dnf-plugins-core
-	coolercontrol
 	thunar
 	thunar-volman
 	thunar-archive-plugin
@@ -121,13 +118,6 @@ dnf5 install --setopt=install_weak_deps=False -y \
 	"${NIRI_PKGS[@]}" \
 	"${ADDITIONAL_SYSTEM_APPS[@]}"
 
-IMPORTANT_UNITS=(
-		coolercontrold
-)
-
-for unit in "${IMPORTANT_UNITS[@]}"; do
-	systemctl enable --now "$unit"    
-done
 #######################################################################
 ### Disable repositeories so they aren't cluttering up the final image
 
@@ -170,12 +160,3 @@ log "Installing ${FCITX5_LOTUS_RPM_FILENAME}..."
 dnf5 install --setopt=install_weak_deps=False -y "${FCITX5_LOTUS_RPM_TMP}"
 
 rm -f "${FCITX5_LOTUS_RPM_TMP}"
-
-for unit in "${IMPORTANT_UNITS[@]}"; do
-    if ! systemctl is-enabled "$unit" 2>/dev/null | grep -q "^enabled$"; then
-        echo "${unit} is not enabled"
-        exit 1
-    fi
-done
-
-echo "::endgroup::"
