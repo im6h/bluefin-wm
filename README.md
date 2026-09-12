@@ -1,14 +1,12 @@
 <div align="center">
 
-# 🐟 bluefin-wm
+# 🌊 nirifin
 
-**A custom [bootc](https://github.com/bootc-dev/bootc) OCI image built on [Bluefin](https://github.com/ublue-os/bluefin) —
-curated for tiling window manager workflows with full Vietnamese input support.**
+**An immutable, daily-built Wayland desktop powered by Niri, based on Bluefin & Bazzite.**
 
-[![Build](https://github.com/im6h/bluefin-wm/actions/workflows/build.yml/badge.svg)](https://github.com/im6h/bluefin-wm/actions/workflows/build.yml)
+[![Build](https://github.com/im6h/nirifin/actions/workflows/build.yml/badge.svg)](https://github.com/im6h/nirifin/actions/workflows/build.yml)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](./LICENSE)
-[![Image: GHCR](https://img.shields.io/badge/ghcr.io-im6h%2Fbluefin--wm-blue?logo=github)](https://ghcr.io/im6h/bluefin-wm)
-[![ArtifactHub](https://img.shields.io/badge/ArtifactHub-bluefin--wm-blue?logo=artifacthub)](https://artifacthub.io)
+[![Image: GHCR](https://img.shields.io/badge/ghcr.io-im6h%2Fnirifin-blue?logo=github)](https://ghcr.io/im6h/nirifin)
 
 </div>
 
@@ -16,72 +14,56 @@ curated for tiling window manager workflows with full Vietnamese input support.*
 
 ## 📖 About
 
-**bluefin-wm** is a customized, immutable Linux desktop image derived from [`ghcr.io/ublue-os/bluefin-dx`](https://github.com/ublue-os/bluefin). It is built using [bootc](https://github.com/bootc-dev/bootc) and published to the GitHub Container Registry (GHCR), ready to rebase onto any compatible Fedora Atomic system.
+**nirifin** is a dual-base Linux distribution powered by [bootc](https://github.com/bootc-dev/bootc) and the [Universal Blue](https://universal-blue.org/) ecosystem. It offers pre-configured, atomic OS images that swap the traditional GNOME or KDE desktop for [Niri](https://github.com/YaLTeR/niri)—a modern, infinite-scrollable tiling Wayland compositor.
 
-The image is designed for users who prefer a **Wayland tiling window manager** workflow over a traditional GNOME desktop, while retaining the stability and atomic update model of Universal Blue / Fedora Silverblue.
+With daily automated builds ensuring you always have the latest security patches and upstream updates, `nirifin` provides a highly customized yet remarkably stable desktop experience.
 
-Key goals:
-- 🪟 Ship **Niri** fully installed and ready to use
-- 🇻🇳 Provide **Vietnamese input** out-of-the-box via [fcitx5-lotus](https://github.com/LotusInputMethod/fcitx5-lotus)
-- 🎨 Include a curated Wayland toolstack (bars, launchers, notification daemons, theming tools)
-- 📦 Keep everything reproducible, image-based, and atomic
-
----
-
-## ✨ Features
-
-### 🪟 Window Managers
-| WM | Type | Description |
-|---|---|---|
-| [Niri](https://github.com/YaLTeR/niri) | Scrollable-tiling | A unique infinite-canvas scrolling compositor |
-| [Noctalia Shell](https://github.com/noctalia-dev/noctalia) | Desktop Shell | A cohesive Wayland desktop shell with bar, dock, notifications, and widgets |
-
-### 🇻🇳 Vietnamese Input
-- [fcitx5-lotus](https://github.com/LotusInputMethod/fcitx5-lotus) — automatically downloaded from GitHub Releases at image build time, matched to the running Fedora version (42 / 43 / 44+)
-
-### 🛠️ Wayland Toolstack
-| Category | Packages |
-|---|---|
-| Status bar | `waybar` |
-| Launcher | `rofi-wayland`, `fuzzel` |
-| Notifications | `swaync` (SwayNotificationCenter) |
-| Wallpaper / Theming | `swww`, `matugen`, `wallust` |
-| Screenshot | `grim`, `grimblast`, `slurp`, `swappy` |
-| Clipboard | `cliphist`, `wl-clip-persist` |
-| Terminals | `alacritty`, `kitty` |
-| File manager | `thunar` + plugins |
-| Bluetooth | `blueman`, `bluez`, `bluez-tools` |
-| Audio | `pamixer`, `pavucontrol`, `playerctl`, `wireplumber` |
-| Brightness | `brightnessctl` |
-| Lock screen | `swaylock` |
-| Idle daemon | `hypridle` |
-| Display control | `wlr-randr` |
-| Qt theming | `qt5ct`, `qt6ct`, `kvantum`, `nwg-look` |
-| XWayland bridge | `xwayland-satellite` |
-
-### 🔡 Fonts
-- `fira-code-fonts`
-- `fontawesome-fonts-all`
-- `google-noto-emoji-fonts`
-- Pre-bundled from Bluefin: Adobe Source Code Pro, Droid Sans, Noto Sans CJK, JetBrains Mono, Symbols Nerd Font
+### ✨ Key Pillars
+- 🌀 **Scrollable Tiling**: Navigate windows on an infinite horizontal ribbon using Niri, augmented by the [Noctalia](https://github.com/noctalia-dev/noctalia) desktop shell.
+- 🛡️ **Daily Security & Atomic Upgrades**: Images are rebuilt daily (`cron: "05 10 * * *"`) pulling the latest upstream updates and packages. Updates apply atomically in the background.
+- 🎮 **Workstation & Gaming Flavors**: Choose the base that fits your workflow.
+- 🇻🇳 **Vietnamese Input**: Out-of-the-box support via `fcitx5-lotus`, automatically tracking the latest GitHub releases during the image build.
+- ⚡ **Curated Wayland Toolstack**: Ships with essential tools like Ghostty, Waybar, Rofi-Wayland/Fuzzel, SwayNC, Thunar, and more.
 
 ---
 
-## 🇻🇳 Vietnamese Input — fcitx5-lotus
+## 💿 Flavors & Rebase Guide
 
-This image ships [**fcitx5-lotus**](https://github.com/LotusInputMethod/fcitx5-lotus), a Vietnamese input method engine for [fcitx5](https://fcitx-im.org/).
+We provide two distinct flavors based on your needs:
 
-### How it is installed
+| Flavor | Target Audience | Base Image | Command to Switch |
+|---|---|---|---|
+| **`nirifin`** | Developers & Workstations | [Bluefin-DX](https://projectbluefin.io/) | `sudo bootc switch ghcr.io/im6h/nirifin:latest` |
+| **`nirizite`** | Gamers & Multimedia | [Bazzite](https://bazzite.gg/) | `sudo bootc switch ghcr.io/im6h/nirizite:latest` |
 
-During the image build, `build.sh` automatically:
-1. Queries the GitHub Releases API for the **latest** `fcitx5-lotus` tag
-2. Selects the correct `.rpm` artifact for the current **Fedora version** (42 / 43 / 44 / rawhide)
-3. Downloads and installs the package with `dnf5`
+> [!WARNING]
+> Switching your image via `bootc switch` will replace your current OS base. Your home directory (`~`) and `/etc` are preserved. Always back up important data before rebasing.
 
-### Post-install setup
+### Switch back / Rollback
+To revert to your previous image at any time:
+```bash
+sudo bootc rollback
+```
 
-After rebasing to this image, configure fcitx5 as your input method framework by adding these environment variables to `~/.config/environment.d/fcitx5.conf` (create if it doesn't exist):
+---
 
+## 🪟 Niri & Noctalia
+
+[**Niri**](https://github.com/YaLTeR/niri) abandons the standard grid layout for a scrollable horizontal workspace. Windows never shrink uncontrollably; instead, they tile into columns that you can scroll through effortlessly.
+
+To make the system immediately usable, `nirifin` pairs Niri with **Noctalia**, a dedicated desktop shell providing:
+- An integrated status bar
+- Launcher / app switcher
+- Native workspace overview for the scrolling layout
+
+---
+
+## 🇻🇳 Vietnamese Input Configuration
+
+The image ships with [**fcitx5-lotus**](https://github.com/LotusInputMethod/fcitx5-lotus), compiled directly from the latest release for your Fedora base.
+
+**Post-install setup:**
+Add the following to `~/.config/environment.d/fcitx5.conf` (create if missing):
 ```ini
 XMODIFIERS=@im=fcitx
 GTK_IM_MODULE=fcitx
@@ -90,155 +72,32 @@ SDL_IM_MODULE=fcitx
 GLFW_IM_MODULE=ibus
 ```
 
-Then open **fcitx5-configtool**, add **Lotus** as an input method, and set your preferred Vietnamese input scheme (Telex / VNI / VIQR).
-
-> [!TIP]
-> Run `fcitx5 &` from your WM startup config to auto-start the input daemon on login.
+Then launch **fcitx5-configtool**, add **Lotus**, and choose your preferred typing method (Telex / VNI / VIQR). Make sure to configure `fcitx5 &` to auto-start in your Niri configuration!
 
 ---
 
-## 🪟 Window Managers
+## 🏗️ Under the Hood
 
-### Niri
-
-[Niri](https://github.com/YaLTeR/niri) is a scrollable-tiling Wayland compositor. Instead of a traditional workspace grid, windows tile into infinite horizontal columns that you can scroll through.
-
-**Packages installed:**
-
-| Package | Purpose |
-|---|---|
-| `niri` | Compositor |
-| `swaylock` | Lock screen |
-| `noctalia-git` | Desktop shell — bar, launcher, and workspace overview for Niri |
-
-#### Noctalia Shell
-
-[**Noctalia**](https://github.com/noctalia) is a purpose-built desktop shell for Niri. It provides:
-- A **status bar** (workspaces, system tray, clock, media)
-- An integrated **launcher / app switcher**
-- A **workspace overview** that fits naturally with Niri's scrollable layout
-
-> [!NOTE]
-> `noctalia-git` is built from the latest Git snapshot and sourced via the `errornointernet/packages` COPR repo.
-
-
----
-
-## 📦 COPR Repositories
-
-The following [Fedora COPR](https://copr.fedorainfracloud.org/) repositories are enabled **during the image build** to source additional packages, then **disabled** in the final image to keep it clean:
-
-| COPR Repo | Purpose |
-|---|---|
-| `eriker/SwayNotificationCenter` | `swaync` notification center |
-| `errornointernet/packages` | Various Wayland utilities |
-| `heus-sueh/packages` | `matugen`, `swww` (needed by hyprpanel) |
-| `leloubil/wl-clip-persist` | Clipboard persistence across focus changes |
-| `lionheartp/Hyprland` | Packages required on Fedora 44 |
-| `tofik/sway` | Sway-related tools |
-| `ulysg/xwayland-satellite` | XWayland compatibility layer |
-| `yalter/niri` | Niri compositor |
-
----
-
-## 🚀 Installation
-
-### Prerequisites
-
-- A machine running a **bootc-compatible** image:
-  - [Bluefin](https://projectbluefin.io) ✅ (recommended — same base)
-  - [Bazzite](https://bazzite.gg), [Aurora](https://getaurora.dev), or [Fedora Silverblue](https://fedoraproject.org/silverblue/)
-- Internet access for the initial rebase
-
-### Rebase to `bluefin-wm`
-
-```bash
-sudo bootc switch ghcr.io/im6h/bluefin-wm:latest
-```
-
-Then **reboot**. On next login, select **Niri** from your display manager session list.
-
-> [!WARNING]
-> This will replace your current OS image. Your home directory and `/etc` are preserved. Make sure you have a backup of important data before switching.
-
-### Verify current image
-
-```bash
-sudo bootc status
-```
-
-### Switch back / rollback
-
-To revert to your previous image at any time:
-
-```bash
-sudo bootc rollback
-```
-
----
-
-## 📁 Repository Structure
-
-```
-bluefin-wm/
-├── Containerfile           # Main image definition (FROM bluefin-dx)
+### Repository Structure
+```text
+nirifin/
+├── Containerfile           # Image definitions pulling from uBlue bases
 ├── build_files/
-│   └── build.sh            # Package installation & customization script
-├── system_files/           # System config files bundled into the image
-│   ├── etc/                # /etc overrides
-│   └── usr/                # /usr overrides
-├── disk_config/            # ISO / disk image config (bootc-image-builder)
+│   └── build.sh            # Injects packages, configs, and COPR repos
+├── system_files/           # System-wide overrides (/etc, /usr)
 ├── .github/workflows/
-│   ├── build.yml           # CI: build & publish to GHCR
-│   └── build-disk.yml      # CI: build ISO / QCOW2 / raw disk images
-├── Justfile                # Developer tooling
-├── image-template.env      # Image name, org, description, metadata
-├── artifacthub-repo.yml    # ArtifactHub publisher verification
-├── cosign.pub              # Public key for image signing verification
-└── GUILD.md                # Full developer guide
+│   └── build.yml           # CI that builds images daily and on-push
+└── image-template.env      # Build environment metadata
 ```
 
----
-
-## 🔧 Customizing
-
-This image is built from the [Universal Blue image-template](https://github.com/ublue-os/image-template). To create your own fork:
-
-1. Fork this repository
-2. Edit `image-template.env` — set `IMAGE_NAME` and `REPO_ORGANIZATION`
-3. Modify `build_files/build.sh` — add or remove packages
-4. Add config files to `system_files/` — they are copied into the final image
-5. Push — GitHub Actions will build and publish your image automatically
-
-> [!IMPORTANT]
-> Generate your own cosign key pair before pushing:
-> ```bash
-> COSIGN_PASSWORD="" cosign generate-key-pair
-> gh secret set SIGNING_SECRET < cosign.key
-> ```
-> Never commit `cosign.key` to the repository.
+### Security & Signing
+Images are built automatically by GitHub Actions and cryptographically signed using `cosign`. You can verify the integrity of any downloaded image using the public key `cosign.pub` included in this repository.
 
 ---
 
-## 🤝 Community
+## 🤝 Community & Support
 
-Need help, or want to share your config?
+Built with ❤️ on top of [Universal Blue](https://universal-blue.org), [Bluefin](https://projectbluefin.io), and [Bazzite](https://bazzite.gg).
 
 - 💬 [Universal Blue Forums](https://universal-blue.discourse.group/)
-- 🎮 [Universal Blue Discord](https://discord.gg/WEu6BdFEtp)
-- 📖 [bootc Discussion Forums](https://github.com/bootc-dev/bootc/discussions)
-
----
-
-## 📜 License
-
-This project is licensed under the **GNU General Public License v3.0**.
-See [LICENSE](./LICENSE) for the full text.
-
----
-
-<div align="center">
-
-Built with ❤️ on top of [Universal Blue](https://universal-blue.org) · [Bluefin](https://projectbluefin.io) · [bootc](https://bootc.dev)
-
-</div>
+- 📖 [bootc Discussion](https://github.com/bootc-dev/bootc/discussions)
